@@ -59,20 +59,23 @@ For my personal work flow I have developed a Makefile that can be used to build 
 The test results from regression runs can be found under test-results folder, the results are compatible with JUnit format and ready to be used in a CI/CD flow! The respective coverage results can also be found under coverage_report. 
 
 ## RTL Verification status
-The main testbench for verification of this IP is the one which is written in Python and can be run with other open-source tools. Provided testsuite for Python testbench passes 100% line coverage with Verilator and different functional aspects of the design have been stressed. The testbench is self-checking and results are compared against a C model implementation of the design. Below is the list of testcases that were created for the design:
+The main testbench for verification of this IP is the one which is written in Python and can be run with other open-source tools. Provided testsuite for Python testbench passes 100% line coverage with Verilator and different functional aspects of the design have been stressed. The testbench is self-checking and results are compared against a C model implementation of the design. Below is the list of testcases that were created for the design and their components in UVM:
 
-- `test_const_coef`
-- `test_rand_coeff`
-- `test_rand_coeffbackpress`
-- `test_rand_coeffbackpress_mid_reset`
-- `test_rand_valid`
-- `test_saturation`
-- `test_process_delay`
+| Test                                      | Sequence item      | Sequence       | Driver                                  | Sequencer   | Monitor   | Scoreboard   |
+|-------------------------------------------|--------------------|----------------|-----------------------------------------|-------------|-----------|--------------|
+| `test_const_coeff`                        | `item_const_coeff` | `sequence`     | `driver`                                | `sequencer` | `monitor` | `scoreboard` |
+| `test_rand_coeff`                         | `item_rand_coeff`  | `sequence`     | `driver`                                | `"`         | `"`       | `"`          |
+| `test_rand_coeffbackpress`                | `item_rand_coeff`  | `sequence`     | `driver_backpress`                      | `"`         | `"`       | `"`          |
+| `test_rand_coeffbackpress_mid_reset`      | `item_rand_coeff`  | `sequence`     | `driver_mid_reset_backpress`            | `"`         | `"`       | `"`          |
+| `test_rand_valid`                         | `item_rand_coeff`  | `sequence`     | `driver_mid_reset_backpress_rand_valid` | `"`         | `"`       | `"`          |
+| `test_saturation`                         | `item_saturation`  | `sequence_sat` | `driver`                                | `"`         | `"`       | `"`          |
+| `test_process_delay(modifies RTL config)` | `item_rand_coeff`  | `sequence`     | `driver_mid_reset_backpress`            | `"`         | `"`       | `"`          |
 
 ## Details about RTL design decisions
 
 ### Datapath architecture
 ![Architecture](images/Data_path.JPG)
+
 
 ### Controlpath architecture
 ![state machine](images/sm.png)
