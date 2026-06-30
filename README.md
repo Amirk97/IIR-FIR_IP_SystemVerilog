@@ -73,7 +73,7 @@ The main testbench for verification of this IP is the one which is written in Py
 
 ## Details about RTL design decisions
 
-### Datapath architecture
+### Datapath architecture (Direct-Form I)
 ![Architecture](images/Data_path.JPG)
 
 
